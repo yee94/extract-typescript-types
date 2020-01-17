@@ -1,0 +1,12 @@
+{
+  "extends": ["tslint-config-airbnb", "tslint-config-prettier"],
+  "rulesDirectory": ["tslint-plugin-prettier"],
+  "rules": {
+    "object-shorthand-properties-first": false,
+    "import-name": false,
+    "variable-name": false,
+    "strict-boolean-expressions": false,
+    "no-unused-variable": false,
+    "prettier": true
+  }
+}
