@@ -125,6 +125,11 @@ function setComponentDocGen(
             ts.createLiteral("description"),
             ts.createLiteral(d.description),
           ),
+          // SimpleComponent.__docgenInfo.filePath
+          ts.createPropertyAssignment(
+            ts.createLiteral("filePath"),
+            ts.createLiteral(options.filename),
+          ),
           // SimpleComponent.__docgenInfo.displayName
           ts.createPropertyAssignment(
             ts.createLiteral("displayName"),
