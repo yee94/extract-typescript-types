@@ -168,11 +168,11 @@ function getTSConfigFile(tsconfigPath: string): ts.ParsedCommandLine {
   );
 }
 
-function getDefaultTSConfigFile(basePath: string): ts.ParsedCommandLine {
+export function getDefaultTSConfigFile(basePath: string): ts.ParsedCommandLine {
   return ts.parseJsonConfigFileContent({}, ts.sys, basePath, {});
 }
 
-function loadFiles(filesToLoad: string[]): void {
+export function loadFiles(filesToLoad: string[]): void {
   filesToLoad.forEach(filePath => {
     const normalizedFilePath = path.normalize(filePath);
     const file = files.get(normalizedFilePath);
@@ -192,16 +192,16 @@ function loadFiles(filesToLoad: string[]): void {
   });
 }
 
-function createServiceHost(
+export function createServiceHost(
   compilerOptions: ts.CompilerOptions,
-  files: Map<string, TSFile>,
+  fileMap: Map<string, TSFile> = files,
 ): ts.LanguageServiceHost {
   return {
     getScriptFileNames: () => {
-      return [...files.keys()];
+      return [...fileMap.keys()];
     },
     getScriptVersion: fileName => {
-      const file = files.get(fileName);
+      const file = fileMap.get(fileName);
       return (file && file.version.toString()) || "";
     },
     getScriptSnapshot: fileName => {
@@ -209,13 +209,13 @@ function createServiceHost(
         return undefined;
       }
 
-      let file = files.get(fileName);
+      let file = fileMap.get(fileName);
 
       if (file === undefined) {
         const text = fs.readFileSync(fileName).toString();
 
         file = { version: 0, text };
-        files.set(fileName, file);
+        fileMap.set(fileName, file);
       }
 
       return ts.ScriptSnapshot.fromString(file!.text!);
