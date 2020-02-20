@@ -1,6 +1,7 @@
 import path from "path";
 import ts from "typescript";
-import { ComponentDoc, PropItem } from "react-docgen-typescript/lib/parser.js";
+import { PropItem } from "react-docgen-typescript/lib/parser.js";
+import { ComponentDoc } from "./docgen-typescript";
 
 export interface GeneratorOptions {
   filename: string;
@@ -110,6 +111,13 @@ function setComponentDocGen(
   d: ComponentDoc,
   options: GeneratorOptions,
 ): ts.Statement {
+  const relativeFilename = path
+    .relative("./", path.resolve("./", options.filename))
+    .replace(/\\/g, "/");
+
+  // @ts-ignore
+  const mtime = d.mtime;
+  // const [description, ...restArr] = `${d.description || ""}`.split("\n@");
   return insertTsIgnoreBeforeStatement(
     ts.createStatement(
       ts.createBinary(
@@ -128,12 +136,23 @@ function setComponentDocGen(
           // SimpleComponent.__docgenInfo.filePath
           ts.createPropertyAssignment(
             ts.createLiteral("filePath"),
-            ts.createLiteral(options.filename),
+            ts.createLiteral(relativeFilename),
           ),
           // SimpleComponent.__docgenInfo.displayName
           ts.createPropertyAssignment(
             ts.createLiteral("displayName"),
             ts.createLiteral(d.displayName),
+          ),
+          // SimpleComponent.__docgenInfo.mtime
+          ts.createPropertyAssignment(
+            ts.createLiteral("mtime"),
+            ts.createLiteral(mtime),
+          ),
+          ...Object.entries(d.tags).map(([propName, prop]) =>
+            ts.createPropertyAssignment(
+              ts.createLiteral(propName),
+              ts.createLiteral(prop),
+            ),
           ),
           // SimpleComponent.__docgenInfo.props
           ts.createPropertyAssignment(

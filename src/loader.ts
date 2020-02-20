@@ -6,12 +6,18 @@ import fs from "fs";
 // https://github.com/styleguidist/react-docgen-typescript/pull/104 is hopefully
 // merged in. Will be considering to make a peer dependency as that point.
 import {
-  withDefaultConfig,
-  withCustomConfig,
-  withCompilerOptions,
   ParserOptions,
   FileParser,
 } from "react-docgen-typescript/lib/parser.js";
+import {
+  // @ts-ignore
+  withDefaultConfig,
+  // @ts-ignore
+  withCustomConfig,
+  // @ts-ignore
+  withCompilerOptions,
+} from "./docgen-typescript";
+
 import LoaderOptions from "./LoaderOptions";
 import validateOptions from "./validateOptions";
 import generateDocgenCodeBlock from "./generateDocgenCodeBlock";
@@ -130,7 +136,7 @@ function processResource(
 
       return languageService!.getProgram()!;
     },
-  );
+  ) as any;
 
   options.typePropName = options.typePropName || "type";
 
