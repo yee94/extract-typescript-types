@@ -122,20 +122,7 @@ function processResource(
 
   const componentDocs = parser.parseWithProgramProvider(
     context.resourcePath,
-    () => {
-      if (languageService) {
-        return languageService.getProgram()!;
-      }
-
-      const servicesHost = createServiceHost(compilerOptions, files);
-
-      languageService = ts.createLanguageService(
-        servicesHost,
-        ts.createDocumentRegistry(),
-      );
-
-      return languageService!.getProgram()!;
-    },
+    () => getProgram(context, compilerOptions),
   ) as any;
 
   options.typePropName = options.typePropName || "type";
@@ -227,4 +214,31 @@ export function createServiceHost(
     readFile: ts.sys.readFile,
     readDirectory: ts.sys.readDirectory,
   };
+}
+
+export function getProgram(
+  context: webpack.loader.LoaderContext,
+  compilerOptions: any = {
+    allowJs: true,
+  },
+) {
+  if (languageService) {
+    return languageService.getProgram()!;
+  }
+
+  if (!Array.from(files.keys()).length) {
+    const basePath = path.dirname(context.context);
+    const tsConfigFile = getDefaultTSConfigFile(basePath);
+
+    loadFiles(tsConfigFile.fileNames);
+  }
+
+  const servicesHost = createServiceHost(compilerOptions, files);
+
+  languageService = ts.createLanguageService(
+    servicesHost,
+    ts.createDocumentRegistry(),
+  );
+
+  return languageService!.getProgram()!;
 }
