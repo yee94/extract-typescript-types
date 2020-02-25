@@ -122,7 +122,7 @@ function processResource(
 
   const componentDocs = parser.parseWithProgramProvider(
     context.resourcePath,
-    () => getProgram(context, compilerOptions),
+    () => getProgram(context.context, compilerOptions),
   ) as any;
 
   options.typePropName = options.typePropName || "type";
@@ -217,7 +217,7 @@ export function createServiceHost(
 }
 
 export function getProgram(
-  context: webpack.loader.LoaderContext,
+  baseDirPath: string,
   compilerOptions: any = {
     allowJs: true,
   },
@@ -227,7 +227,7 @@ export function getProgram(
   }
 
   if (!Array.from(files.keys()).length) {
-    const basePath = path.dirname(context.context);
+    const basePath = path.dirname(baseDirPath);
     const tsConfigFile = getDefaultTSConfigFile(basePath);
 
     loadFiles(tsConfigFile.fileNames);
