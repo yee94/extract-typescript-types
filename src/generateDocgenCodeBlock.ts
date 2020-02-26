@@ -117,7 +117,6 @@ function setComponentDocGen(
 
   // @ts-ignore
   const mtime = d.mtime;
-  // const [description, ...restArr] = `${d.description || ""}`.split("\n@");
   return insertTsIgnoreBeforeStatement(
     ts.createStatement(
       ts.createBinary(

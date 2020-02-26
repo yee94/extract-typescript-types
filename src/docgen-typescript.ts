@@ -5,7 +5,9 @@ import fs from "fs";
 import { Props, Method } from "react-docgen-typescript/lib/parser";
 
 const addTags = (propInfo: any) => {
-  const [mainComment, ...tags] = propInfo.description.split("\n@");
+  const [comment, ...tags] = ` \n${propInfo.description}`.split("\n@");
+
+  const mainComment = comment.replace(/^ \n/, "");
 
   const resultTags = tags
     .map(tag => tag.split(" "))
@@ -42,7 +44,9 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
   const [, source] = args;
   // @ts-ignore
   const mtime = Date.parse(fs.statSync(source.originalFileName).mtime);
-  const [description, ...restArr] = `${result.description || ""}`.split("\n@");
+  const [desc, ...restArr] = ` \n${result.description || ""}`.split("\n@");
+
+  const description = desc.replace(/^ \n/, "");
 
   const restProps = restArr.reduce((previousValue, currentValue) => {
     const matches = /^(\w+) (.+)/.exec(currentValue.trim());
