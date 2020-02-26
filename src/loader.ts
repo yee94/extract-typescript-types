@@ -217,7 +217,7 @@ export function createServiceHost(
 }
 
 export function getProgram(
-  baseDirPath: string,
+  basePath: string,
   compilerOptions: any = {
     allowJs: true,
   },
@@ -227,7 +227,7 @@ export function getProgram(
   }
 
   if (!Array.from(files.keys()).length) {
-    const basePath = path.dirname(baseDirPath);
+    // const basePath = path.dirname(basePath);
     const tsConfigFile = getDefaultTSConfigFile(basePath);
 
     loadFiles(tsConfigFile.fileNames);
