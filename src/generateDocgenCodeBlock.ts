@@ -54,18 +54,33 @@ export default function generateDocgenCodeBlock(
   );
 
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
-  const printNode = (sourceNode: ts.Node) =>
+  const printNode = (sourceNode: ts.Node): string =>
     printer.printNode(ts.EmitHint.Unspecified, sourceNode, sourceFile);
 
   // Concat original source code with code from generated code blocks.
-  const result = codeBlocks.reduce(
-    (acc, node) => acc + printNode(node),
+  // Use original source text rather than using printNode on the parsed form
+  // to prevent issue where literals are stripped within components.
+  // Ref: https://github.com/strothj/react-docgen-typescript-loader/issues/7
 
-    // Use original source text rather than using printNode on the parsed form
-    // to prevent issue where literals are stripped within components.
-    // Ref: https://github.com/strothj/react-docgen-typescript-loader/issues/7
-    options.source,
-  );
+  const blocks: [string, number][] = codeBlocks.map((node, index) => {
+    return [printNode(node), options.componentDocs[index].block[1]];
+  });
+
+  return addBlocks(options.source, blocks);
+}
+
+export function addBlocks(source: string, blocks: [string, number][]) {
+  let addCount = 0;
+  let result = source;
+  blocks.forEach(block => {
+    const [content, pos] = block;
+
+    const insertPos = pos + addCount;
+
+    result = result.slice(0, insertPos) + content + result.slice(insertPos);
+
+    addCount += content.length;
+  });
 
   return result;
 }

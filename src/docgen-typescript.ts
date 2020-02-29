@@ -41,7 +41,16 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
   if (!result) {
     return result;
   }
-  const [, source] = args;
+  const [exp, source] = args;
+
+  const valueDeclaration = exp.valueDeclaration || exp.declarations[0];
+
+  if (!valueDeclaration) {
+    return null;
+  }
+
+  const { pos: start, end } = valueDeclaration;
+
   // @ts-ignore
   const mtime = Date.parse(fs.statSync(source.originalFileName).mtime);
   const [desc, ...restArr] = ` \n${result.description || ""}`.split("\n@");
@@ -61,7 +70,12 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
 
   // Object.values(result).forEach(addTags);
 
-  return Object.assign(result, { description, tags: restProps, mtime });
+  return Object.assign(result, {
+    description,
+    tags: restProps,
+    mtime,
+    block: [start, end],
+  });
 };
 
 parser.Parser.prototype.getDocgenType = function(propType) {
@@ -99,6 +113,7 @@ export interface ComponentDoc {
   props: Props;
   methods: Method[];
   mtime: string;
+  block: [number, number];
   tags: Record<string, string>;
 }
 
