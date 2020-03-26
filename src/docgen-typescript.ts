@@ -13,6 +13,7 @@ const addTags = (propInfo: any) => {
     .map(tag => tag.split(" "))
     .reduce((prev, [key, key2, ...value]) => {
       if (/^\..+/.test(key2) && !!value.length) {
+        // vision.key xxxxxx
         key = `${key}${key2}`;
       } else {
         value = [key2, ...value];
@@ -57,22 +58,29 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
 
   const description = desc.replace(/^ \n/, "");
 
-  const restProps = restArr.reduce((previousValue, currentValue) => {
-    const matches = /^(\w+) (.+)/.exec(currentValue.trim());
-    const [, key, value] = matches || [];
+  // rest description to be tags
+  const tags = restArr.reduce((previousValue, currentValue) => {
+    const newTag = [currentValue.trim().split(" ")].reduce(
+      (prev, [key, key2, ...value]) => {
+        if (/^\..+/.test(key2) && !!value.length) {
+          // vision.key xxxxxx
+          key = `${key}${key2}`;
+        } else {
+          value = [key2, ...value];
+        }
+        return Object.assign(prev, { [key]: value.join("") });
+      },
+      {},
+    );
 
-    if (key && value) {
-      return Object.assign(previousValue, { [key]: value });
-    }
-
-    return previousValue;
+    return Object.assign(previousValue, newTag);
   }, {});
 
   // Object.values(result).forEach(addTags);
 
   return Object.assign(result, {
     description,
-    tags: restProps,
+    tags,
     mtime,
     block: [start, end],
   });
