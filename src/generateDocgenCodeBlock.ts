@@ -55,7 +55,7 @@ export default function generateDocgenCodeBlock(
 
   const printer = ts.createPrinter({ newLine: ts.NewLineKind.LineFeed });
   const printNode = (sourceNode: ts.Node): string =>
-    printer.printNode(ts.EmitHint.Unspecified, sourceNode, sourceFile);
+    `\n${printer.printNode(ts.EmitHint.Unspecified, sourceNode, sourceFile)}`;
 
   // Concat original source code with code from generated code blocks.
   // Use original source text rather than using printNode on the parsed form
@@ -346,6 +346,7 @@ function createPropDefinition(
       setName(prop.name),
       setRequired(prop.required),
       setType(prop.type.name, prop.type.value),
+      // @ts-ignore
       setTags(prop.tags),
     ]),
   );

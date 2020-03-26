@@ -1,6 +1,6 @@
 const parser = require("react-docgen-typescript/lib/parser.js");
 // import * as parser from "react-docgen-typescript/lib/parser.js";
-const { TypeFormatFlags } = require("typescript");
+const { SyntaxKind, TypeFormatFlags, SymbolFlags } = require("typescript");
 import fs from "fs";
 import { Props, Method } from "react-docgen-typescript/lib/parser";
 
@@ -45,6 +45,13 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
   const [exp, source] = args;
 
   const valueDeclaration = exp.valueDeclaration || exp.declarations[0];
+
+  if (
+    exp.flags === SymbolFlags.Alias &&
+    valueDeclaration.kind === SyntaxKind.ExportSpecifier
+  ) {
+    return null;
+  }
 
   if (!valueDeclaration) {
     return null;
