@@ -8,6 +8,9 @@
     "strict-boolean-expressions": false,
     "no-unused-variable": false,
     "no-parameter-reassignment": false,
-    "prettier": true
+    "prettier": true,
+    "interface-name": false,
+    "prefer-template": false,
+    "arrow-parens": false
   }
 }

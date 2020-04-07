@@ -1,8 +1,8 @@
-const parser = require("react-docgen-typescript/lib/parser.js");
-// import * as parser from "react-docgen-typescript/lib/parser.js";
+const parser = require("./react-docgen-typescript/parser");
+// import * as parser from "./react-docgen-typescript/parser";
 const { SyntaxKind, TypeFormatFlags, SymbolFlags } = require("typescript");
 import fs from "fs";
-import { Props, Method } from "react-docgen-typescript/lib/parser";
+import { Props, Method } from "./react-docgen-typescript/parser";
 
 const addTags = (propInfo: any) => {
   const [comment, ...tags] = ` \n${propInfo.description}`.split("\n@");

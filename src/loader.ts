@@ -5,10 +5,7 @@ import fs from "fs";
 // TODO: Import from "react-docgen-typescript" directly when
 // https://github.com/styleguidist/react-docgen-typescript/pull/104 is hopefully
 // merged in. Will be considering to make a peer dependency as that point.
-import {
-  ParserOptions,
-  FileParser,
-} from "react-docgen-typescript/lib/parser.js";
+import { ParserOptions, FileParser } from "./react-docgen-typescript/parser";
 import {
   // @ts-ignore
   withDefaultConfig,

@@ -2,7 +2,7 @@ import { CompilerOptions } from "typescript";
 import {
   ComponentNameResolver,
   PropFilter,
-} from "react-docgen-typescript/lib/parser.js";
+} from "./react-docgen-typescript/parser";
 
 export default interface LoaderOptions {
   /** Avoid including docgen information for the prop or props specified. */
