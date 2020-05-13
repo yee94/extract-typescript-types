@@ -55,7 +55,7 @@ it("generates value info for enums", () => {
   expect(
     generateDocgenCodeBlock(
       getGeneratorOptions({ shouldExtractLiteralValuesFromEnum: true })(
-        "DefaultPropValue.tsx",
+        "util.tsx",
       ),
     ),
   ).toMatchSnapshot();

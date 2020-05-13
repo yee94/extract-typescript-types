@@ -72,15 +72,18 @@ export default function generateDocgenCodeBlock(
 export function addBlocks(source: string, blocks: [string, number][]) {
   let addCount = 0;
   let result = source;
-  blocks.forEach(block => {
-    const [content, pos] = block;
 
-    const insertPos = pos + addCount;
+  blocks
+    .sort((a, b) => a[1] - b[1])
+    .forEach(block => {
+      const [content, pos] = block;
 
-    result = result.slice(0, insertPos) + content + result.slice(insertPos);
+      const insertPos = pos + addCount;
 
-    addCount += content.length;
-  });
+      result = result.slice(0, insertPos) + content + result.slice(insertPos);
+
+      addCount += content.length;
+    });
 
   return result;
 }
