@@ -43,6 +43,8 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
     return result;
   }
   const [exp, source] = args;
+  const exportName = exp.escapedName;
+
 
   const valueDeclaration = exp.valueDeclaration || exp.declarations[0];
 
@@ -86,6 +88,7 @@ parser.Parser.prototype.getComponentInfo = function(...args) {
   // Object.values(result).forEach(addTags);
 
   return Object.assign(result, {
+    exportName,
     description,
     tags,
     mtime,
