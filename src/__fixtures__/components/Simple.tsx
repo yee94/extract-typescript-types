@@ -1,7 +1,10 @@
 import * as React from "react";
 
 interface SimpleComponentProps {
-  /** Button color. */
+  /**
+   * Button color.
+   * @category dd
+   * */
   color: "blue" | "green";
 }
 

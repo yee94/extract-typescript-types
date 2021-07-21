@@ -394,10 +394,10 @@ export class Parser {
         name,
         params,
         returns: returnDescription
-          ? {
+          ? ({
               description: returnDescription,
               type: returnType,
-            }
+            } as any)
           : null,
       });
     });
@@ -407,7 +407,7 @@ export class Parser {
 
   public getModifiers(member: ts.Symbol) {
     const modifiers: string[] = [];
-    const flags = ts.getCombinedModifierFlags(member.valueDeclaration);
+    const flags = ts.getCombinedModifierFlags(member.valueDeclaration!);
     const isStatic = (flags & ts.ModifierFlags.Static) !== 0; // tslint:disable-line no-bitwise
 
     if (isStatic) {
@@ -421,9 +421,13 @@ export class Parser {
     return callSignature.parameters.map(param => {
       const paramType = this.checker.getTypeOfSymbolAtLocation(
         param,
-        param.valueDeclaration,
+        param.valueDeclaration!,
       );
-      const paramDeclaration = this.checker.symbolToParameterDeclaration(param);
+      const paramDeclaration = this.checker.symbolToParameterDeclaration(
+        param,
+        undefined,
+        undefined,
+      );
       const isOptionalParam: boolean = !!(
         paramDeclaration && paramDeclaration.questionToken
       );
@@ -590,7 +594,11 @@ export class Parser {
     const tagMap: StringIndexedObject<string> = {};
 
     tags.forEach(tag => {
-      const trimmedText = (typeof tag.text === "string"? tag.text : "").trim();
+      // @ts-ignore
+      const trimmedText = (Array.isArray(tag.text)
+        ? tag.text.map(({ text }) => text).join("")
+        : tag.text
+      ).trim();
       const currentValue = tagMap[tag.name];
       tagMap[tag.name] = currentValue
         ? currentValue + "\n" + trimmedText
@@ -858,7 +866,12 @@ function getPropertyName(
 function formatTag(tag: ts.JSDocTagInfo) {
   let result = "@" + tag.name;
   if (tag.text) {
-    result += " " + tag.text;
+    const trimmedText = (Array.isArray(tag.text)
+      ? tag.text.map(({ text }) => text).join("")
+      : tag.text
+    ).trim();
+
+    result += " " + trimmedText;
   }
   return result;
 }
