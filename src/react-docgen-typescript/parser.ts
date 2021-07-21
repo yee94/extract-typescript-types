@@ -594,11 +594,12 @@ export class Parser {
     const tagMap: StringIndexedObject<string> = {};
 
     tags.forEach(tag => {
-      // @ts-ignore
-      const trimmedText = (Array.isArray(tag.text)
-        ? tag.text.map(({ text }) => text).join("")
-        : tag.text
-      ).trim();
+      const trimmedText =
+        // @ts-ignore
+        (Array.isArray(tag.text)
+          ? tag.text.map(({ text }) => text).join("")
+          : tag.text
+        ).trim?.() || "";
       const currentValue = tagMap[tag.name];
       tagMap[tag.name] = currentValue
         ? currentValue + "\n" + trimmedText
@@ -866,10 +867,9 @@ function getPropertyName(
 function formatTag(tag: ts.JSDocTagInfo) {
   let result = "@" + tag.name;
   if (tag.text) {
-    const trimmedText = (Array.isArray(tag.text)
+    const trimmedText = Array.isArray(tag.text)
       ? tag.text.map(({ text }) => text).join("")
-      : tag.text
-    ).trim();
+      : tag.text;
 
     result += " " + trimmedText;
   }
