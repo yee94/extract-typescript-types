@@ -1,6 +1,6 @@
 {
   "name": "@ali/react-docgen-typescript-loader-add-tag",
-  "version": "3.6.19",
+  "version": "3.6.20",
   "description": "Webpack loader to generate docgen information from TypeScript React components.",
   "keywords": [
     "storybook",
