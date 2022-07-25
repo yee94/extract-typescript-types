@@ -1,5 +1,5 @@
 {
-  "name": "@ali/react-docgen-typescript-loader-add-tag",
+  "name": "react-docgen-typescript-loader-add-tag",
   "version": "3.6.21",
   "description": "Webpack loader to generate docgen information from TypeScript React components.",
   "keywords": [
@@ -60,8 +60,5 @@
     "tslint-plugin-prettier": "^2.0.0",
     "typescript": "^3.6.2",
     "webpack": "^4.39.3"
-  },
-  "publishConfig": {
-    "registry": "https://registry.npm.alibaba-inc.com"
   }
 }
