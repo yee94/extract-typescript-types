@@ -1,11 +1,11 @@
 {
-  "name": "docgen-typescript-types",
+  "name": "extract-typescript-types",
   "version": "1.0.0",
-  "description": "Generate docgen information from TypeScript Types.",
+  "description": "Generate extract information from TypeScript Types.",
   "keywords": [
     "typescript"
   ],
-  "repository": "https://github.com/xiaobebe/docgen-typescript-types.git",
+  "repository": "https://github.com/xiaobebe/extract-typescript-types.git",
   "author": "yee.wang",
   "main": "dist/index.js",
   "license": "MIT",

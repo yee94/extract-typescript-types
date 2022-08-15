@@ -276,7 +276,7 @@ export class Parser {
     return symbolType.getCallSignatures()[0];
   }
 
-  public getDocgenType(propType: ts.Type): PropItemType {
+  public getExtractType(propType: ts.Type): PropItemType {
     // 解析浅层Interface
     // @ts-ignore
     const propTypeString = this.checker.typeToString(propType, undefined, TypeFormatFlags.InTypeAlias);
@@ -340,7 +340,7 @@ export class Parser {
         description,
         tags,
         required: !isOptional && !hasCodeBasedDefault,
-        type: this.getDocgenType(propType),
+        type: this.getExtractType(propType),
       };
     });
 

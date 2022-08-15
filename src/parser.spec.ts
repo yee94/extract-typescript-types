@@ -6,7 +6,7 @@ import { expect, it } from 'vitest';
 
 const fixtureTests = loadFixtureTests();
 
-it('adds component to docgen collection', () => {
+it('adds component to extract collection', () => {
   fixtureTests.forEach((fixture) => {
     expect(parse(fixture.filepath, {})).toMatchSnapshot();
   });
