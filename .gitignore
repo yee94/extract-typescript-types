@@ -2,7 +2,6 @@ node_modules/
 .vscode/
 .idea/
 .rpt2_cache/
-dist/
+lib/
 *error.log
-back/
 yarn.lock

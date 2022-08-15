@@ -7,10 +7,10 @@
   ],
   "repository": "https://github.com/xiaobebe/extract-typescript-types.git",
   "author": "yee.wang",
-  "main": "dist/index.js",
+  "main": "lib/index.js",
   "license": "MIT",
   "files": [
-    "dist/*"
+    "lib/*"
   ],
   "precommit": [
     "test",
@@ -20,7 +20,7 @@
   "scripts": {
     "start": "tsc -w",
     "build": "tsc",
-    "clean": "rm -rf dist",
+    "clean": "rm -rf lib",
     "test": "vitest run"
   },
   "peerDependencies": {

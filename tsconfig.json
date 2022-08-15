@@ -5,7 +5,7 @@
     "lib": ["esnext"],
     "baseUrl": ".",
     "rootDir": "src",
-    "noEmit": true,
+    "noEmit": false,
     "downlevelIteration": true,
     "strict": true,
     "noUnusedLocals": true,
