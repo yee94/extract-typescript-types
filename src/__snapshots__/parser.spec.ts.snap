@@ -8,11 +8,15 @@ exports[`adds component to extract collection 1`] = `
     "methods": [],
     "props": {
       "color": {
-        "defaultValue": null,
+        "defaultValue": {
+          "value": "blue",
+        },
         "description": "Button color.",
         "name": "color",
         "required": true,
-        "tags": {},
+        "tags": {
+          "default": "blue",
+        },
         "type": {
           "name": "\\"blue\\" | \\"green\\"",
         },
@@ -159,7 +163,9 @@ exports[`adds component to extract collection 6`] = `
         "description": "Button color.",
         "name": "color",
         "required": true,
-        "tags": {},
+        "tags": {
+          "category": "dd",
+        },
         "type": {
           "name": "\\"blue\\" | \\"green\\"",
         },
@@ -176,7 +182,7 @@ exports[`adds component to extract collection 6`] = `
       },
     },
     "tags": {
-      "author": "YeeWang",
+      "author": "Yee Wang",
     },
   },
   {
@@ -189,17 +195,120 @@ exports[`adds component to extract collection 6`] = `
         "description": "Button color.",
         "name": "color",
         "required": true,
-        "tags": {},
+        "tags": {
+          "category": "dd",
+        },
         "type": {
           "name": "\\"blue\\" | \\"green\\"",
         },
       },
       "color2": {
-        "defaultValue": null,
+        "defaultValue": {
+          "value": "'blue'",
+        },
         "description": "Button color.",
         "name": "color2",
         "required": true,
+        "tags": {
+          "category.dd": "dd",
+          "category.id": "22",
+          "category2": "dd",
+          "default": "'blue'",
+        },
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "isDisabled": {
+        "defaultValue": null,
+        "description": "",
+        "name": "isDisabled",
+        "required": false,
         "tags": {},
+        "type": {
+          "name": "boolean",
+        },
+      },
+      "onChange": {
+        "defaultValue": null,
+        "description": "",
+        "name": "onChange",
+        "required": false,
+        "tags": {},
+        "type": {
+          "name": "() => void",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;
+
+exports[`simple fixture test 1`] = `
+[
+  {
+    "description": "Simple component.",
+    "exportName": "SimpleComponentProps",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {
+          "category": "dd",
+        },
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "isDisabled": {
+        "defaultValue": null,
+        "description": "",
+        "name": "isDisabled",
+        "required": false,
+        "tags": {},
+        "type": {
+          "name": "boolean",
+        },
+      },
+    },
+    "tags": {
+      "author": "Yee Wang",
+    },
+  },
+  {
+    "description": "Simple component.",
+    "exportName": "SimpleComponentProps2",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {
+          "category": "dd",
+        },
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "color2": {
+        "defaultValue": {
+          "value": "'blue'",
+        },
+        "description": "Button color.",
+        "name": "color2",
+        "required": true,
+        "tags": {
+          "category.dd": "dd",
+          "category.id": "22",
+          "category2": "dd",
+          "default": "'blue'",
+        },
         "type": {
           "name": "\\"blue\\" | \\"green\\"",
         },

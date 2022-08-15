@@ -1,5 +1,3 @@
-import * as React from 'react';
-
 /**
  * Simple component.
  * @author Yee Wang
@@ -20,17 +18,12 @@ export interface SimpleComponentProps {
 export type SimpleComponentProps2 = SimpleComponentProps & {
   /**
    * Button color.
-   * @category dd
+   * @category2 dd
+   * @category.dd dd
+   * @category.id 22
    * @default 'blue'
    * */
   color2: 'blue' | 'green';
 
   onChange?: () => void;
 };
-
-/**
- * A simple component.
- */
-export const SimpleComponent: React.SFC<SimpleComponentProps> = (props) => (
-  <button style={{ backgroundColor: props.color }}>{props.children}</button>
-);

@@ -180,8 +180,7 @@ export class Parser {
     let commentSource = exp;
 
     const exportName = exp.getName();
-    const fullComment = this.findDocComment(commentSource).fullComment;
-    const { tags, description } = this.getTags(fullComment);
+    const { description, tags } = this.getFullJsDocComment(commentSource);
 
     // const defaultProps = this.extractDefaultPropsFromComponent(exp, source);
     const props = this.getPropsInfo(exp);
@@ -201,79 +200,6 @@ export class Parser {
       methods: [],
       props,
     };
-  }
-
-  public extractPropsFromTypeIfStatelessComponent(type: ts.Type): ts.Symbol | null {
-    const callSignatures = type.getCallSignatures();
-
-    if (callSignatures.length) {
-      // Could be a stateless component.  Is a function, so the props object we're interested
-      // in is the (only) parameter.
-
-      for (const sig of callSignatures) {
-        const params = sig.getParameters();
-        if (params.length === 0) {
-          continue;
-        }
-        // Maybe we could check return type instead,
-        // but not sure if Element, ReactElement<T> are all possible values
-        const propsParam = params[0];
-        if (propsParam.name === 'props' || params.length === 1) {
-          return propsParam;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  public extractPropsFromTypeIfStatefulComponent(type: ts.Type): ts.Symbol | null {
-    const constructSignatures = type.getConstructSignatures();
-
-    if (constructSignatures.length) {
-      // React.Component. Is a class, so the props object we're interested
-      // in is the type of 'props' property of the object constructed by the class.
-
-      for (const sig of constructSignatures) {
-        const instanceType = sig.getReturnType();
-        const props = instanceType.getProperty('props');
-
-        if (props) {
-          return props;
-        }
-      }
-    }
-
-    return null;
-  }
-
-  public extractMembersFromType(type: ts.Type): ts.Symbol[] {
-    const methodSymbols: ts.Symbol[] = [];
-
-    /**
-     * Need to loop over properties first so we capture any
-     * static methods. static methods aren't captured in type.symbol.members
-     */
-    type.getProperties().forEach((property) => {
-      // Only add members, don't add non-member properties
-      if (this.getCallSignature(property)) {
-        methodSymbols.push(property);
-      }
-    });
-
-    if (type.symbol && type.symbol.members) {
-      type.symbol.members.forEach((member) => {
-        methodSymbols.push(member);
-      });
-    }
-
-    return methodSymbols;
-  }
-
-  public getCallSignature(symbol: ts.Symbol) {
-    const symbolType = this.checker.getTypeOfSymbolAtLocation(symbol, symbol.valueDeclaration!);
-
-    return symbolType.getCallSignatures()[0];
   }
 
   public getExtractType(propType: ts.Type): PropItemType {
@@ -322,8 +248,8 @@ export class Parser {
       // tslint:disable-next-line:no-bitwise
       const isOptional = (prop.getFlags() & ts.SymbolFlags.Optional) !== 0;
 
-      const jsDocComment = this.findDocComment(prop);
-      const { description, tags } = this.getTags(jsDocComment.description);
+      const { description, tags } = this.getFullJsDocComment(prop);
+
       const hasCodeBasedDefault = defaultProps[propName] !== undefined;
 
       let defaultValue: any = null;
@@ -370,25 +296,6 @@ export class Parser {
     };
   }
 
-  public findDocComment(symbol: ts.Symbol): JSDoc {
-    const comment = this.getFullJsDocComment(symbol);
-    if (comment.fullComment || comment.tags.default) {
-      return comment;
-    }
-
-    const rootSymbols = this.checker.getRootSymbols(symbol);
-    const commentsOnRootSymbols = rootSymbols
-      .filter((x) => x !== symbol)
-      .map((x) => this.getFullJsDocComment(x))
-      .filter((x) => !!x.fullComment || !!comment.tags.default);
-
-    if (commentsOnRootSymbols.length) {
-      return commentsOnRootSymbols[0];
-    }
-
-    return defaultJSDoc;
-  }
-
   /**
    * Extracts a full JsDoc comment from a symbol, even
    * though TypeScript has broken down the JsDoc comment into plain
@@ -412,14 +319,11 @@ export class Parser {
     const tagMap: StringIndexedObject<string> = {};
 
     tags.forEach((tag) => {
-      const tagComment = Array.isArray(tag.text) ? tag.text.map(({ text }) => text).join('') : tag.text || '';
-      const trimmedText = tagComment.trim() || '';
-      const currentValue = tagMap[tag.name];
-      tagMap[tag.name] = currentValue ? currentValue + '\n' + trimmedText : trimmedText;
+      const formatedTag = formatTag(tag);
+      const [, key, content] = formatedTag.match(/^@([^ ]+) (.+)/) || [];
+      tagMap[key] = content;
 
-      if (tag.name !== 'default') {
-        tagComments.push(formatTag(tag));
-      }
+      tagComments.push(formatTag(tag));
     });
 
     return {
@@ -435,7 +339,13 @@ function formatTag(tag: ts.JSDocTagInfo) {
   if (tag.text) {
     const trimmedText = Array.isArray(tag.text) ? tag.text.map(({ text }) => text).join('') : tag.text;
 
-    result += ' ' + trimmedText;
+    if (/^\..+/.test(trimmedText)) {
+      // @key.key xxxx
+      const [, tagChild = '', desc = ''] = trimmedText.match(/^(\.[^ ]+)(.+)/) || [];
+      result += tagChild + ' ' + desc.trim();
+    } else {
+      result += ' ' + trimmedText;
+    }
   }
   return result;
 }

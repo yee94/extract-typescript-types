@@ -5,6 +5,11 @@ import * as path from 'path';
 import { expect, it } from 'vitest';
 
 const fixtureTests = loadFixtureTests();
+const simpleFixture = fixtureTests.find((f) => f.filename === 'Simple.tsx')!;
+
+it('simple fixture test', () => {
+  expect(parse(simpleFixture.filepath, {})).toMatchSnapshot();
+});
 
 it('adds component to extract collection', () => {
   fixtureTests.forEach((fixture) => {
