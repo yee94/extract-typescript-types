@@ -21,6 +21,7 @@
     "start": "tsc -w",
     "build": "tsc",
     "clean": "rm -rf lib",
+    "prepublishOnly": "npm run build",
     "test": "vitest run"
   },
   "peerDependencies": {
