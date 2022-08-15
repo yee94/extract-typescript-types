@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface MultiPropsComponentProps {
+export interface MultiPropsComponentProps {
   /** Button color. */
   color: "blue" | "green";
 

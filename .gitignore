@@ -4,4 +4,5 @@ node_modules/
 .rpt2_cache/
 dist/
 *error.log
-storybook-static/
+back/
+yarn.lock

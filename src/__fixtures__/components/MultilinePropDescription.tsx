@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface MultilinePropDescriptionComponentProps {
+export interface MultilinePropDescriptionComponentProps {
   /**
    * This is a multiline prop description.
    *

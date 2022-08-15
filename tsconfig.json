@@ -1,9 +1,9 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "module": "commonjs",
+    "module": "esnext",
     "lib": ["esnext"],
-    "jsx": "react",
+    "baseUrl": ".",
     "rootDir": "src",
     "noEmit": true,
     "downlevelIteration": true,
@@ -15,8 +15,11 @@
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
     "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./lib"
   },
-  "exclude": ["**/*.spec.ts", "**/__fixtures__", "**/__mocks__"],
+  "exclude": ["**/*.spec.ts", "**/__fixtures__"],
   "include": ["./src/**/*"]
 }

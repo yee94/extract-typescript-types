@@ -1,0 +1,231 @@
+// Vitest Snapshot v1
+
+exports[`adds component to docgen collection 1`] = `
+[
+  {
+    "description": "",
+    "exportName": "DefaultPropValueComponentProps",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "counter": {
+        "defaultValue": null,
+        "description": "Button counter.",
+        "name": "counter",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "number",
+        },
+      },
+      "disabled": {
+        "defaultValue": null,
+        "description": "Button disabled.",
+        "name": "disabled",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "boolean",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;
+
+exports[`adds component to docgen collection 2`] = `
+[
+  {
+    "description": "",
+    "exportName": "HyphenatedPropNameProps",
+    "methods": [],
+    "props": {
+      "button-color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "button-color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;
+
+exports[`adds component to docgen collection 3`] = `
+[
+  {
+    "description": "",
+    "exportName": "MultiPropsComponentProps",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "size": {
+        "defaultValue": null,
+        "description": "Button size.",
+        "name": "size",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"small\\" | \\"large\\"",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;
+
+exports[`adds component to docgen collection 4`] = `
+[
+  {
+    "description": "",
+    "exportName": "MultilineDescriptionProps",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;
+
+exports[`adds component to docgen collection 5`] = `
+[
+  {
+    "description": "",
+    "exportName": "MultilinePropDescriptionComponentProps",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "This is a multiline prop description.
+
+Second line.",
+        "name": "color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;
+
+exports[`adds component to docgen collection 6`] = `
+[
+  {
+    "description": "Simple component.",
+    "exportName": "SimpleComponentProps",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "isDisabled": {
+        "defaultValue": null,
+        "description": "",
+        "name": "isDisabled",
+        "required": false,
+        "tags": {},
+        "type": {
+          "name": "boolean",
+        },
+      },
+    },
+    "tags": {
+      "author": "YeeWang",
+    },
+  },
+  {
+    "description": "Simple component.",
+    "exportName": "SimpleComponentProps2",
+    "methods": [],
+    "props": {
+      "color": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "color2": {
+        "defaultValue": null,
+        "description": "Button color.",
+        "name": "color2",
+        "required": true,
+        "tags": {},
+        "type": {
+          "name": "\\"blue\\" | \\"green\\"",
+        },
+      },
+      "isDisabled": {
+        "defaultValue": null,
+        "description": "",
+        "name": "isDisabled",
+        "required": false,
+        "tags": {},
+        "type": {
+          "name": "boolean",
+        },
+      },
+      "onChange": {
+        "defaultValue": null,
+        "description": "",
+        "name": "onChange",
+        "required": false,
+        "tags": {},
+        "type": {
+          "name": "() => void",
+        },
+      },
+    },
+    "tags": {},
+  },
+]
+`;

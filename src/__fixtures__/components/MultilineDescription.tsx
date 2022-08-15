@@ -1,6 +1,6 @@
 import * as React from "react";
 
-interface MultilineDescriptionProps {
+export interface MultilineDescriptionProps {
   /** Button color. */
   color: "blue" | "green";
 }

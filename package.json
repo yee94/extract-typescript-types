@@ -1,19 +1,12 @@
 {
-  "name": "react-docgen-typescript-loader-add-tag",
-  "version": "3.6.21",
-  "description": "Webpack loader to generate docgen information from TypeScript React components.",
+  "name": "docgen-typescript-types",
+  "version": "1.0.0",
+  "description": "Generate docgen information from TypeScript Types.",
   "keywords": [
-    "storybook",
-    "react",
-    "docgen",
-    "typescript",
-    "webpack",
-    "loader"
+    "typescript"
   ],
-  "homepage": "https://github.com/strothj/react-docgen-typescript-loader",
-  "bugs": "https://github.com/strothj/react-docgen-typescript-loader/issues",
-  "repository": "https://github.com/strothj/react-docgen-typescript-loader.git",
-  "author": "strothj (https://github.com/strothj)",
+  "repository": "https://github.com/xiaobebe/docgen-typescript-types.git",
+  "author": "yee.wang",
   "main": "dist/index.js",
   "license": "MIT",
   "files": [
@@ -25,15 +18,10 @@
     "build"
   ],
   "scripts": {
-    "start": "tsc -p ./tsconfig.build.json -w",
-    "build": "tsc -p ./tsconfig.build.json",
-    "clean": "rimraf dist",
-    "test": "jest",
-    "lint": "tslint -p ./"
-  },
-  "dependencies": {
-    "@webpack-contrib/schema-utils": "^1.0.0-beta.0",
-    "loader-utils": "^1.2.3"
+    "start": "tsc -w",
+    "build": "tsc",
+    "clean": "rm -rf dist",
+    "test": "vitest run"
   },
   "peerDependencies": {
     "typescript": "*"
@@ -42,23 +30,10 @@
     "@babel/core": "^7.5.5",
     "@babel/plugin-transform-modules-commonjs": "^7.5.0",
     "@babel/preset-typescript": "^7.3.3",
-    "@types/jest": "^24.0.18",
-    "@types/memory-fs": "^0.3.2",
-    "@types/node": "^12.7.3",
-    "@types/react": "^16.9.2",
-    "@types/webpack": "^4.39.1",
-    "jest": "^24.9.0",
-    "memory-fs": "^0.4.1",
     "pre-commit": "^1.2.2",
-    "prettier": "^1.18.2",
+    "prettier": "^2.7.1",
     "react": "^16.9.0",
-    "rimraf": "^3.0.0",
-    "ts-loader": "^6.0.4",
-    "tslint": "^5.19.0",
-    "tslint-config-airbnb": "^5.11.0",
-    "tslint-config-prettier": "^1.13.0",
-    "tslint-plugin-prettier": "^2.0.0",
-    "typescript": "^3.6.2",
-    "webpack": "^4.39.3"
+    "typescript": "^4.7.4",
+    "vitest": "^0.21.1"
   }
 }
