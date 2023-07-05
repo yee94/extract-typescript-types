@@ -120,6 +120,8 @@ export function withCustomConfig(tsconfigPath: string, parserOpts: ParserOptions
     throw errors[0];
   }
 
+  options.strict = false;
+
   return withCompilerOptions(options, parserOpts);
 }
 
