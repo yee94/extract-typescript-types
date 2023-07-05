@@ -87,6 +87,16 @@ exports[`adds component to extract collection 3`] = `
           "name": "\\"blue\\" | \\"green\\"",
         },
       },
+      "required": {
+        "defaultValue": null,
+        "description": "",
+        "name": "required",
+        "required": false,
+        "tags": {},
+        "type": {
+          "name": "boolean",
+        },
+      },
       "size": {
         "defaultValue": null,
         "description": "Button size.",

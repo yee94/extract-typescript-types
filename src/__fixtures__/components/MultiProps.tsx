@@ -6,6 +6,8 @@ export interface MultiPropsComponentProps {
 
   /** Button size. */
   size: "small" | "large";
+
+  required?: boolean;
 }
 
 /**
