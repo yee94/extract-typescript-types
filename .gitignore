@@ -5,3 +5,4 @@ node_modules/
 lib/
 *error.log
 yarn.lock
+dist/

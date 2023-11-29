@@ -1,16 +1,17 @@
 {
   "name": "extract-typescript-types",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Generate extract information from TypeScript Types.",
   "keywords": [
     "typescript"
   ],
   "repository": "https://github.com/xiaobebe/extract-typescript-types.git",
   "author": "yee.wang",
-  "main": "lib/index.js",
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "license": "MIT",
   "files": [
-    "lib/*"
+    "dist/*"
   ],
   "precommit": [
     "test",
@@ -18,9 +19,8 @@
     "build"
   ],
   "scripts": {
-    "start": "tsc -w",
-    "build": "tsc",
-    "clean": "rm -rf lib",
+    "dev": "father dev",
+    "build": "father build",
     "prepublishOnly": "npm run build",
     "test": "vitest run"
   },
@@ -32,6 +32,7 @@
     "@babel/plugin-transform-modules-commonjs": "^7.22.5",
     "@babel/preset-typescript": "^7.22.5",
     "@types/node": "^20.3.3",
+    "father": "^4.3.7",
     "pre-commit": "^1.2.2",
     "prettier": "^2.8.8",
     "react": "^16.14.0",
